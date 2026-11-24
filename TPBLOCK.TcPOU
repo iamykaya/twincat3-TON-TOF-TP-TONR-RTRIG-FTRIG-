@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="TPBLOCK" Id="{feedda1d-f846-4973-b3cb-fc5eb4e3d362}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TPBLOCK
+VAR_INPUT
+	in:BOOL;
+	pt:TIME;
+	
+END_VAR
+VAR_OUTPUT
+	out:BOOL;
+	et:TIME;
+	
+END_VAR
+VAR
+	tstarttime:TIME;
+	bpulseact:BOOL;
+	bprevin:BOOL;
+	
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF in AND NOT bprevin AND NOT bpulseact THEN
+	tstarttime:=TIME();
+	bpulseact:=TRUE;
+	out:=TRUE;
+	et:=T#0MS;
+	
+END_IF
+IF bpulseact THEN 
+	et:=TIME()-tstarttime;
+	IF et>= pt THEN 
+		et:=pt;
+		out:=FALSE;
+		bpulseact:=FALSE;
+	END_IF
+ELSE
+	IF NOT in THEN
+		et:=T#0MS;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="TPBLOCK">
+      <LineId Id="9" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="27" Count="3" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="31" Count="1" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="37" Count="1" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="39" Count="3" />
+      <LineId Id="33" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

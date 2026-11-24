@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="MAIN" Id="{d940760c-e873-4381-91d3-7b00ae51dd95}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	denemetontetik:BOOL:=FALSE;
+	thedefsureton:TIME:=T#3S;
+	bsonuccikis:BOOL;
+	tgecen:TIME;
+	tondeneme:tonnnnblock;
+	
+	//-----------------------
+	denemetoftetik:BOOL:=FALSE;
+	thedefsuretof:TIME:=T#4S;
+	tofdeneme:toffffblock;
+	//-----------------------
+	tpdeneme:TPBLOCK;
+	thedefsuretp:TIME:=T#5S;
+	denemetptetik:BOOL:=FALSE;
+	//------------------------
+	tonrdeneme:tonrblock;
+	denemetonrtetik:BOOL:=FALSE;
+	denemetonrreset:BOOL:=FALSE;
+	thedefsuretonr:TIME:=T#6S;
+	//------------------------
+	rtrigdeneme:fbrisetrig;
+	denemertetik:BOOL:=FALSE;
+	nrtrigsayac:INT:=0;
+	//------------------------
+	ftrigdeneme:fbfalltrig;
+	denemeftetik:BOOL:=FALSE;
+	nftrigsayac: INT :=0;
+	
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tondeneme(
+	in:=denemetontetik,
+	pt:=thedefsureton,
+	out=>bsonuccikis,
+	et=>tgecen
+);
+
+tofdeneme(
+	in:=denemetoftetik,
+	pt:=thedefsuretof
+);	
+tpdeneme(
+	in:=denemetptetik,
+	pt:=thedefsuretp
+);
+
+tonrdeneme(
+	in:=denemetonrtetik,
+	reset:=denemetonrreset,
+	pt:=thedefsuretonr
+);
+
+rtrigdeneme(clkin:=denemertetik);
+IF rtrigdeneme.clkout THEN
+	nrtrigsayac:=nrtrigsayac +1;
+END_IF
+
+ftrigdeneme(clkin:=denemeftetik);
+IF ftrigdeneme.clkout THEN
+	nftrigsayac:=nftrigsayac+1;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="12" Count="4" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="55" Count="1" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="66" Count="3" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="106" Count="2" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="119" Count="2" />
+      <LineId Id="105" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

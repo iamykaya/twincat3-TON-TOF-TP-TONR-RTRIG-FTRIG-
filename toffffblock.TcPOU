@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="toffffblock" Id="{27e06b06-73a5-4efb-a636-6a6689930910}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK toffffblock
+VAR_INPUT
+	in:BOOL;
+	pt:TIME;
+END_VAR
+VAR_OUTPUT
+	out:BOOL;
+	et:TIME;
+END_VAR
+VAR
+	tstarttime:TIME;
+	btiming:BOOL;
+	bprevin:BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF in THEN
+	out:=TRUE;
+	et:=T#0MS;
+	btiming:=FALSE;
+ELSE
+	IF bprevin THEN
+		tstarttime:=TIME();
+		btiming:=TRUE;
+		
+		
+	END_IF
+	IF btiming THEN
+		et:=TIME()-tstarttime;
+		IF et>=pt THEN
+			et:=pt;
+			out:=FALSE;
+			btiming:=FALSE;
+			
+		END_IF
+	END_IF
+END_IF
+bprevin:=in;
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="toffffblock">
+      <LineId Id="9" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="24" Count="4" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="37" Count="1" />
+      <LineId Id="40" Count="2" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="44" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

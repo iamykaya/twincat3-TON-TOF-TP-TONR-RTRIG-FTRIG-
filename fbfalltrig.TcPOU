@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="fbfalltrig" Id="{aa44cdb1-efb5-4aa3-9f13-bf47ea35e6a2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbfalltrig
+VAR_INPUT
+	clkin:BOOL;
+	
+END_VAR
+VAR_OUTPUT
+	clkout:BOOL;
+	
+END_VAR
+VAR
+	bprevclk:BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[clkout:= NOT clkin AND bprevclk;
+bprevclk:=clkin;]]></ST>
+    </Implementation>
+    <LineIds Name="fbfalltrig">
+      <LineId Id="9" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

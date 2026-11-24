@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="tonrblock" Id="{04b5c1fe-71e6-4d87-80db-7edc957602dc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK tonrblock
+VAR_INPUT
+	in:BOOL;
+	reset:BOOL;
+	pt:TIME;
+	
+END_VAR
+VAR_OUTPUT
+	out:BOOL;
+	et:TIME;
+END_VAR
+VAR
+	tstarttime:TIME;
+	tsavedtime:TIME;
+	brunning:BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF reset THEN
+	tsavedtime:=T#0MS;
+	et:=T#0MS;
+	out:=FALSE;
+	brunning:=FALSE;
+ELSIF in THEN
+     IF NOT brunning THEN
+        tstarttime:=TIME();
+        brunning:=TRUE;		 
+	 END_IF
+	 et:=tsavedtime+(TIME()-tstarttime);
+	 IF et >= pt THEN;
+		 et:=pt;
+		 out:=TRUE;
+	 END_IF
+ELSE
+	IF brunning THEN
+		tsavedtime:=et;
+		brunning:=FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="tonrblock">
+      <LineId Id="85" Count="4" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="123" Count="3" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="141" Count="2" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="146" Count="2" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

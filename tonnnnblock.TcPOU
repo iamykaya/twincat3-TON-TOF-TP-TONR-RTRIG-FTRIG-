@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="tonnnnblock" Id="{6a0c1958-6b51-4ffc-a521-727268d0e81c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK tonnnnblock
+VAR_INPUT
+	in:BOOL;
+	pt:TIME;
+	
+END_VAR
+VAR_OUTPUT
+	out:BOOL;
+	et:TIME;
+	
+END_VAR
+VAR
+	tstarttime:TIME;
+	brunning:BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF in THEN
+	IF NOT brunning THEN
+		tstarttime :=TIME();
+		brunning :=TRUE;
+		et :=T#0MS;
+		out :=FALSE;
+	ELSE
+		ET := TIME()-tstarttime;
+		IF et>=pt THEN
+			et:=pt;
+			out:=TRUE;
+			
+		END_IF
+	END_IF
+ELSE
+	brunning :=FALSE;
+	et:= T#0MS;
+	out:=FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="tonnnnblock">
+      <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="5" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="38" Count="3" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

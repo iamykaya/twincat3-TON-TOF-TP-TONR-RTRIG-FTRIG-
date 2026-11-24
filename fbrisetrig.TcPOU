@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="fbrisetrig" Id="{eb5d26b5-5673-416e-9bef-f173508a7ffa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbrisetrig
+VAR_INPUT
+	clkin:BOOL;
+	
+END_VAR
+VAR_OUTPUT
+	clkout:BOOL;
+	
+END_VAR
+VAR
+	bprevclk:BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[clkout:= clkin AND NOT bprevclk;
+bprevclk:=clkin;
+]]></ST>
+    </Implementation>
+    <LineIds Name="fbrisetrig">
+      <LineId Id="9" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
