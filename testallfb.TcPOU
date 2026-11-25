@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="testallfb" Id="{e4f25eca-1b62-4cc5-bead-7d680f1f0ebe}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK testallfb
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbton:tonnnnblock;
+	fbtof:toffffblock;
+	fbtonr:tonrblock;
+	fbtp:tpblock;
+	fbrtrig:fbrisetrig;
+	fbftrig:fbfalltrig;
+	
+	//-----------------
+	
+	binton:BOOL;
+	bintof:BOOL;
+	bintp:BOOL;
+	bintonr:BOOL;
+	bresettonr:BOOL;
+	bclockrtrig:BOOL;
+	bclockftrig:BOOL;
+	
+	//---------------
+	
+	boutton:BOOL;
+	tetton:TIME;
+	bouttof:BOOL;
+	tettof:TIME;
+	bouttp:BOOL;
+	tettp:TIME;
+	bouttonr:BOOL;
+	tettonr:TIME;
+	boutrtrig:BOOL;
+	boutftrig:BOOL;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbton(
+	in:=binton , pt:=T#3S , out=>boutton , et=>tetton
+);
+
+fbtof(
+	in:=bintof , pt:=T#3S , out=>bouttof , et=>tettof
+);
+fbtp(
+	in:=bintp, pt:= T#3S, out =>bouttp, et =>tettp
+);
+fbtonr(
+	in:=bintonr, reset:= bresettonr, pt := T#5S, out=>bouttonr, et =>tettonr
+);
+fbrtrig(
+	clkin:=bclockrtrig , clkout=>boutrtrig
+);
+fbftrig(
+	clkin:=bclockftrig , clkout=>boutftrig
+);
+	]]></ST>
+    </Implementation>
+    <LineIds Name="testallfb">
+      <LineId Id="9" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="98" Count="4" />
+      <LineId Id="105" Count="2" />
+      <LineId Id="109" Count="3" />
+      <LineId Id="108" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
